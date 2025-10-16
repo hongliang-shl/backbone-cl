@@ -4,7 +4,7 @@ from torch.nn import functional as F
 
 from nets.inception_resnetv1 import InceptionResnetV1
 from nets.mobilenet import MobileNetV1
-
+from nets.swin_transformer import SwinTransformer
 
 class mobilenet(nn.Module):
     def __init__(self, pretrained):
@@ -55,12 +55,17 @@ class Facenet(nn.Module):
         if backbone == "mobilenet":
             self.backbone = mobilenet(pretrained)
             flat_shape = 1024
+            self.avg = nn.AdaptiveAvgPool2d((1,1))
         elif backbone == "inception_resnetv1":
             self.backbone = inception_resnet(pretrained)
             flat_shape = 1792
+            self.avg = nn.AdaptiveAvgPool2d((1,1))
+        elif backbone == "swin-t":
+            self.backbone = SwinTransformer(img_size=160, window_size=5)
+            flat_shape = 768
+            self.avg = nn.AdaptiveAvgPool1d(1)
         else:
             raise ValueError('Unsupported backbone - `{}`, Use mobilenet, inception_resnetv1.'.format(backbone))
-        self.avg        = nn.AdaptiveAvgPool2d((1,1))
         self.Dropout    = nn.Dropout(1 - dropout_keep_prob)
         self.Bottleneck = nn.Linear(flat_shape, embedding_size,bias=False)
         self.last_bn    = nn.BatchNorm1d(embedding_size, eps=0.001, momentum=0.1, affine=True)

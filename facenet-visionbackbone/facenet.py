@@ -18,13 +18,7 @@ class Facenet(object):
         #   训练好后logs文件夹下存在多个权值文件，选择验证集损失较低的即可。
         #   验证集损失较低不代表准确度较高，仅代表该权值在验证集上泛化性能较好。
         #--------------------------------------------------------------------------#
-        #"model_path"    : "model_data/facenet_inception_resnetv1.pth",
-        #"model_path"    : "model_data/ep449-loss0.002-val_loss0.731_320x320_augement_v4.pth",
-        #"model_path"    : "logs/ep185-loss0.013-val_loss0.085.pth",
-        #"model_path"    : "logs/1001model/ep398-loss0.003-val_loss0.250.pth",
-        "model_path"    : "logs/1211model/ep396-loss0.009-val_loss0.514.pth",
-        #"model_path"    : "model_data/ep345-loss0.005-val_loss0.862_320x320_v2.pth",
-
+        "model_path"    : "logs-20251014/ep492-loss0.000-val_loss2.639.pth",
         #--------------------------------------------------------------------------#
         #   输入图片的大小。
         #--------------------------------------------------------------------------#
